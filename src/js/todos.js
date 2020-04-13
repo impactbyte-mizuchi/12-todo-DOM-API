@@ -34,13 +34,16 @@ function showAllTodos(){
           editTodo(todo.id)
         })
 
-        const deletButton = document.createElement('button')
+        const deleteButton = document.createElement('button')
         const deleteText = document.createTextNode('Hapus')
-        deletButton.appendChild(deleteText)
+        deleteButton.appendChild(deleteText)
+        deleteButton.addEventListener('click', function handleClick(){
+          deleteTodo(todo.id)
+        })
 
         li.appendChild(input)
         li.appendChild(editButton)
-        li.appendChild(deletButton)
+        li.appendChild(deleteButton)
         
         document.querySelector('#todo-list ul').appendChild(li)
       })
@@ -83,6 +86,18 @@ function editTodo(todoId){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
+  }
+
+  fetch(url, options)
+    .then(response => response.json())
+    .then(result => showAllTodos())
+    .catch(error => console.log(error))
+}
+
+function deleteTodo(todoId){
+  const url = `https://5e9407d7c7393c0016de4cfc.mockapi.io/todos/${todoId}`
+  const options = {
+    method: 'DELETE'
   }
 
   fetch(url, options)
