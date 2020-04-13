@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./src/styles/style.css">
+  <title>Todo</title>
+</head>
+<body>
+  <h1>Todo</h1>
+  <section id="form-section">
+    <form id="form" action="">
+      <input type="text" name="todo" id="todo" placeholder="Tambah Todo">
+      <button type="button">+</button>
+    </form>
+  </section>
+  <section id="todo-list">
+    <ul>
+      <li>
+        <input class="show-mode" type="text" value="makan" disabled>
+        <button class="edit">Edit</button>
+        <button class="delete">Hapus</button>
+      </li>
+    </ul>
+  </section>
+  <script src="./src/js/todos.js"></script>
+</body>
+</html>
