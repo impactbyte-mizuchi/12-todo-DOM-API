@@ -13,12 +13,11 @@ function showAllTodos(){
   fetch(url)
     .then(response => response.json())
     .then(results => {
-      // const activeUser = JSON.parse(localStorage.getItem('loginUser'))
       const userTodos = results.filter(result => {
         return result.userId === activeUser.id
       })
 
-      userTodos.forEach(todo => {
+      userTodos.forEach((todo) => {
         const li = document.createElement('li')
         
         const input = document.createElement('input')
@@ -29,7 +28,11 @@ function showAllTodos(){
 
         const editButton = document.createElement('button')
         const editText = document.createTextNode('Edit')
+        editButton.classList.add('edit')
         editButton.appendChild(editText)
+        editButton.addEventListener('click', function handleClick(){
+          editTodo(todo.id)
+        })
 
         const deletButton = document.createElement('button')
         const deleteText = document.createTextNode('Hapus')
@@ -41,8 +44,6 @@ function showAllTodos(){
         
         document.querySelector('#todo-list ul').appendChild(li)
       })
-
-  
     })
     .catch(error => console.log(error))
 }
@@ -65,6 +66,28 @@ function addTodo(){
   fetch(url, options)
     .then(response => response.json())
     .then(todo => showAllTodos())
+    .catch(error => console.log(error))
+}
+
+function editTodo(todoId){
+  const todoEditValue = prompt('ubah todo')
+
+  const data = {
+    todo: todoEditValue
+  }
+
+  const url = `https://5e9407d7c7393c0016de4cfc.mockapi.io/todos/${todoId}`
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  fetch(url, options)
+    .then(response => response.json())
+    .then(result => showAllTodos())
     .catch(error => console.log(error))
 }
 
